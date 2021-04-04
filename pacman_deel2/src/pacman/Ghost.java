@@ -16,6 +16,7 @@ public class Ghost {
 	 * @invar | square != null
 	 * @invar | direction != null
 	 */
+	private int moveDelay;
 	private Square spawn;
 	private Square square;
 	private Direction direction;
@@ -41,6 +42,11 @@ public class Ghost {
 	 */
 	public Square getSpawn() {return spawn;} // nieuw
 	
+	public int getMoveDelay() {return moveDelay;}
+	
+	public void decrementMoveDelay() {this.moveDelay = 0;}
+	public void incrementMoveDelay() {this.moveDelay = 1;}
+	
 	/**
 	 * Initializes this object so that its initial position is the
 	 * given position and its initial direction is the given
@@ -57,6 +63,7 @@ public class Ghost {
 			throw new IllegalArgumentException("`square` is null");
 		if (direction == null)
 			throw new IllegalArgumentException("`direction` is null");
+		this.moveDelay = 0;
 		this.spawn = square; // nieuw
 		this.square = square;
 		this.direction = direction;
@@ -107,7 +114,9 @@ public class Ghost {
 	
 	public void pacManAtePowerPellet() {
 		setDirection(getDirection().getOpposite()); // nieuw
-		this.ghoststate = new VulnerableGhostState();}
+		this.ghoststate = new VulnerableGhostState();
+		this.incrementMoveDelay();
+	}
 	
 	private static int MOVE_FORWARD_PREFERENCE = 10;
 	
