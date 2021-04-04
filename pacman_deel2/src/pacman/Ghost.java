@@ -138,11 +138,11 @@ public class Ghost {
 		setSquare(getSquare().getNeighbor(getDirection()));
 	}
 	
-	void move(Random random ) {
+	public void move(Random random ) {
 		setGhostState(getGhostState().move(this, random));
 	}
 	
-	void hitBy(PacMan pacman) {
+	public void hitBy(PacMan pacman) {
 		setGhostState(getGhostState().hitBy(this, pacman));
 	}
 	
