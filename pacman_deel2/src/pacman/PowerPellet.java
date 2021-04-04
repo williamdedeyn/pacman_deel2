@@ -19,6 +19,7 @@ public class PowerPellet extends FoodItem{
 	 * @throws IllegalArgumentException | square == null
 	 * 
 	 * @post | getSquare() == square
+	 * @post | getSize() == 2
 	 */
 	public PowerPellet(Square square) {
 		if (square == null)

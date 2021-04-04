@@ -12,9 +12,11 @@ import java.util.Random;
 public class Ghost {
 	
 	/**
+	 * @invar | spawn != null
 	 * @invar | square != null
 	 * @invar | direction != null
 	 */
+	private Square spawn;
 	private Square square;
 	private Direction direction;
 	private GhostState ghoststate;
@@ -35,6 +37,11 @@ public class Ghost {
 	public GhostState getGhostState() {return ghoststate;} // nieuw
 	
 	/**
+	 * @basic
+	 */
+	public Square getSpawn() {return spawn;} // nieuw
+	
+	/**
 	 * Initializes this object so that its initial position is the
 	 * given position and its initial direction is the given
 	 * direction.
@@ -50,7 +57,7 @@ public class Ghost {
 			throw new IllegalArgumentException("`square` is null");
 		if (direction == null)
 			throw new IllegalArgumentException("`direction` is null");
-	
+		this.spawn = square; // nieuw
 		this.square = square;
 		this.direction = direction;
 		this.ghoststate = new RegularGhostState(); // nieuw
@@ -90,6 +97,8 @@ public class Ghost {
 		this.direction = direction;
 	}
 	
+	public void setGhostState(GhostState ghoststate) {this.ghoststate = ghoststate;}
+	
 	public boolean isVulnerable(){
 		if(getGhostState() instanceof VulnerableGhostState) // nieuw
 			return true;
@@ -115,8 +124,17 @@ public class Ghost {
 	}
 	
 	// No formal documentation required.
-	public void move(Random random) {
+	public void reallyMove(Random random) {
 		setDirection(chooseNextMoveDirection(random));
 		setSquare(getSquare().getNeighbor(getDirection()));
 	}
+	
+	void move(Random random ) {
+		setGhostState(getGhostState().move(this, random));
+	}
+	
+	void hitBy(PacMan pacman) {
+		setGhostState(getGhostState().hitBy(this, pacman));
+	}
+	
 }

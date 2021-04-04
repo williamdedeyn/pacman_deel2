@@ -24,6 +24,9 @@ public class Dot extends FoodItem {
 	@Override
 	public Square getSquare() { return square; }
 	
+	/**
+	 * @basic
+	 */
 	@Override
 	public int getSize() {return size;}
 	
@@ -31,12 +34,13 @@ public class Dot extends FoodItem {
 	 * @throws IllegalArgumentException | square == null
 	 * 
 	 * @post | getSquare() == square
+	 * @post | getSize() == 1
 	 */
 	public Dot(Square square) {
 		if (square == null)
 			throw new IllegalArgumentException("`square` is null");
-		size = 1;
 		this.square = square;
+		size = 1;
 	}
 	
 	@Override
